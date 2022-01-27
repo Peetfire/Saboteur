@@ -90,7 +90,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     const tile_cardData = Object.values(data.cards.tile_cards)
     // Might need to custimise this to reflect true numbers of individual cards!
     // 5x each tile card
-    for (let step = 0; step < 7; step++){
+    for (let step = 0; step < 20; step++){
       for (let card of tile_cardData)
         deck.push(Object.assign({}, card))
     }
@@ -196,6 +196,8 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
       tempHand.push(card[0])
       setPlayerHand(tempHand)
       setDeck(tempArr)
+      socket.emit('update-deck', deck);
+
     } 
   }
 
@@ -242,6 +244,9 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
       setPlayerTurn(cpuTurnResult[0]);
       setGridState(cpuTurnResult[1]);
       setDeck(cpuTurnResult[2]);
+      socket.emit('update-grid-state', gridState)
+      socket.emit('update-deck', gridState)
+
       // check for win
       if(checkForWin(gridState, goldCardRef)) {
         winner(playerTurn)
@@ -450,6 +455,8 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
         }
       }
     setGridState(tempGrid)
+    socket.emit('update-grid-state', gridState)
+
   }
 
 
@@ -583,7 +590,7 @@ const cpuPlay = (hand, grid) => {
 
           <GameGrid  gridState={gridState}/>   
           <HandList player={player} cards={playerHand} char={playerChar} reorderHand = {reorderHand} handleOnClickInvert = {handleOnClickInvert}/> 
-          <SideBar deck={deck} charDeck={charDeck} backs={data.cards.card_backs} startClick={buttonToggle ? handleEndClick : handleStartClick} buttonToggle={buttonToggle} players={players} playerTurn= {playerTurn}/>
+          <SideBar deck={deck} charDeck={charDeck} backs={data.cards.card_backs} startClick={buttonToggle ? handleEndClick : handleStartClick} buttonToggle={buttonToggle} players={players} playerTurn= {playerTurn} socket={socket} />
 
         </DragDropContext>
         

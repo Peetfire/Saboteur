@@ -1,8 +1,9 @@
 import React from 'react';
 import Player from './Player';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
+import Form from './Form';
 
-const SideBar = ({deck, charDeck, backs, startClick, buttonToggle, players, playerTurn}) => {
+const SideBar = ({deck, charDeck, backs, startClick, buttonToggle, players, playerTurn, socket}) => {
     const playerNodes = players.map((player, index) => {
         return <Player playerName={player.name} score={player.score} key={index} playerTurn={playerTurn} index ={player.index}/>
     })
@@ -20,6 +21,9 @@ const SideBar = ({deck, charDeck, backs, startClick, buttonToggle, players, play
             </div>
             <div className='player-container'>
                 {playerNodes}
+            </div>
+            <div className='form-container'>
+                <Form socket={socket}/>
             </div>
             <div className='button-container'>
                 <button className='start' onClick={handleClick}>{buttonToggle ? "Leave Game" : "Start Game"}</button> 
