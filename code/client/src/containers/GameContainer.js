@@ -35,7 +35,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], 
       [ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]    
   ])
-
+  // setup scoket
   const socket = io('http://localhost:5000', {
     transports: ["websocket", "polling"],
     rememberUpgrade: true,
@@ -49,15 +49,17 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
       setTimeout(()=>socket.connect(),5000)
     })
     return () => socket.off('connect')
-}, [])
+  }, [])
 
+  // Gets all card data from api
   useEffect (() => {
     getData()
     .then(data => setData(data[0]));
 
     setPlayerTurns(playerObjects);
   }, [])
-  
+
+  // Waits for incoming updates of games states from p2p users and updates local states.
   useEffect (() => {
     socket.on('receive-grid-state', gridState => {
       setGridState(gridState)
@@ -71,7 +73,7 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
     };
   }, [])
 
-  
+  // Set up card decks and players turn
   useEffect(() => {
     if(Object.keys(data).length !== 0){
       setPlayers(Object.assign([], playerTurns));
@@ -81,7 +83,6 @@ function GameContainer({player, playerObjects, gameType, roomID}) {
       buildDeck();
       buildCharDeck();
       placeStartCards();
-      
     }
   }, [data])
 
