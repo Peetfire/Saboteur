@@ -60,6 +60,20 @@ The card laying game <a href="https://www.ultraboardgames.com/saboteur/game-rule
     <td></td>
   </tr>
 </table>
+
+<h1>Playable Demo</h1>
+  This version is the end point that we achived in the one week timeframe that we had for this project. Please note that only Single Player Mode is functional and that it was only tested to run in Chrome with a laptop view window.<br><br>
+  
+  <p align="center">
+  <a href="https://saboteur-online.netlify.app/">>>click to play<<</a> <br><br>
+  </p>
+  
+  As a team we were delighted to get to MVP as we had set it out in the time we were given.  However, whilst this is a working demo there are some critical bugs and issues that need to be addressed before it could be considered to be in a finished state.  The table summarises these and sets out further work that we would like to do to complete the project.
+  
+
+
+  
+
 <h1>Screenshots</h1>
 <h3>Splash Screen</h3>
 
